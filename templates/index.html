@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CV RAG Chatbot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="chat-box">
+    <h2>CV Chatbot</h2>
+    <input id="msg" placeholder="CV hakkında soru sor..." />
+    <button onclick="send()">Sor</button>
+    <pre id="res"></pre>
+  </div>
+
+<script>
+function send(){
+  fetch("/chat",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({message:document.getElementById("msg").value})
+  })
+  .then(r=>r.json())
+  .then(d=>document.getElementById("res").innerText=d.answer)
+}
+</script>
+</body>
+</html>
